@@ -54,6 +54,22 @@ public class XmlRoot extends XmlNode {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Default Constructor
+	 */
+	public XmlRoot() {
+		// Default Constructor
+	}
+	
+	/**
+	 * 
+	 * @param tag - Tag name for this XmlRoot
+	 */
+	public XmlRoot( String tag ) {
+		this.tag = tag;
+	}
+
 
 	/**
 	 * Read a w3c Node to XmlRoot 
