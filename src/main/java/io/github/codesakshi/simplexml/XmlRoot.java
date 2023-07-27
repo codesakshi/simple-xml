@@ -2,6 +2,7 @@ package io.github.codesakshi.simplexml;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -19,6 +21,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  * 
@@ -53,20 +56,20 @@ public class XmlRoot extends XmlNode {
 	}
 
 	/**
-	 * Parse a w3c Node to XmlRoot 
+	 * Read a w3c Node to XmlRoot 
 	 * @param w3cNode - The w3c Node
 	 */
-	public void parse( Node w3cNode) {
+	public void read( Node w3cNode) {
 
-		parseNode( w3cNode, this);
+		readNode( w3cNode, this);
 	}
 
 	/**
 	 * Read XML Document from String 
 	 * @param str - Argument string
-	 * @throws Exception
+	 * @throws Exception If read operation fails
 	 */
-	public void readFromXmlString( String str ) throws Exception {
+	public void readXmlFromString( String str ) throws Exception {
 
 		InputStream in = new ByteArrayInputStream( str.getBytes( StandardCharsets.UTF_8 ) );
 		read( in );
@@ -75,20 +78,26 @@ public class XmlRoot extends XmlNode {
 	/**
 	 * Read XML Document from Input Stream 
 	 * @param in - Input Stream
-	 * @throws Exception - If the reading fails
+	 * @throws ParserConfigurationException If any issue with XML Parser Configuration
+	 * @throws IOException If any IO errors occur.
+	 * @throws SAXException If any parse errors occur.
 	 */
-	public void read( InputStream in) throws Exception {
+	public void read( InputStream in) throws ParserConfigurationException,
+		SAXException, IOException  {
 
 		read( in, null);
-	}	
+	}
 
 	/**
 	 * Read XML document from an input stream
 	 * @param in - An input stream from which the XML document is read
 	 * @param name - Name of the XmlRoot ( For identifying the Xml )
-	 * @throws Exception
+	 * @throws ParserConfigurationException If any issue with XML Parser Configuration
+	 * @throws IOException If any IO errors occur.
+	 * @throws SAXException If any parse errors occur.
 	 */
-	public void read( InputStream in, String name) throws Exception {
+	public void read( InputStream in, String name) throws ParserConfigurationException,
+			SAXException, IOException{
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setIgnoringComments( true);
@@ -100,16 +109,16 @@ public class XmlRoot extends XmlNode {
 
 		setTag( w3cDoc.getNodeName() );
 		setName( name );
-		parseNode( w3cDoc, this);
+		readNode( w3cDoc, this);
 
 	}
 	
 	/**
-	 * Parse w3c Node to XmlNode 
+	 * Read w3c Node to XmlNode 
 	 * @param w3cNode - w3c Node to be parsed
 	 * @param xmlNode - XmlNode created for the given w3cNode
 	 */
-	protected static void parseNode( Node w3cNode, XmlNode xmlNode ) {
+	protected static void readNode( Node w3cNode, XmlNode xmlNode ) {
 
 		NamedNodeMap w3cAttribMap = w3cNode.getAttributes();
 
@@ -131,7 +140,7 @@ public class XmlRoot extends XmlNode {
 			case Node.ELEMENT_NODE:
 
 				XmlNode childNode = xmlNode.addChild(w3cChildNode.getNodeName() );
-				parseNode( w3cChildNode, childNode);
+				readNode( w3cChildNode, childNode);
 				break;
 
 			case Node.TEXT_NODE:
@@ -167,7 +176,7 @@ public class XmlRoot extends XmlNode {
 	/**
 	 * Convert the XmlRoot to w3c XML Document
 	 * @return w3c XML Document
-	 * @throws Exception
+	 * @throws Exception If XML Tag is not set for any XmlNode.
 	 */
 	public Document toXmlDocument() throws Exception {
 
@@ -182,7 +191,7 @@ public class XmlRoot extends XmlNode {
 	 * Add XmlNode to w3c XML Document
 	 * @param document - w3c XML Document
 	 * @return w3c XML Document
-	 * @throws Exception  If XML Tag is not set for any XmlNode.
+	 * @throws Exception If XML Tag is not set for any XmlNode.
 	 */
 	public Document toXmlDocument( Document document) throws Exception {
 

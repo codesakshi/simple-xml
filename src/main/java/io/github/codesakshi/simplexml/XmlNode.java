@@ -35,7 +35,7 @@ public class XmlNode {
 
 	/**
 	 * Get tag of the XmlNode
-	 * @return String - tag of the XmlNode
+	 * @return Tag of the XmlNode
 	 */
 	public String getTag() {
 		return tag;
@@ -52,7 +52,7 @@ public class XmlNode {
 	/**
 	 *  Return value of the XmlNode
 	 *  
-	 * @return value of the XmlNode
+	 * @return Value of the XmlNode
 	 */
 	public String getValue() {
 		return value;
@@ -60,7 +60,7 @@ public class XmlNode {
 
 	/**
 	 * Set value of the XmlNode
-	 * @param value - value of the XmlNode
+	 * @param value - Value of the XmlNode
 	 */
 	public void setValue(String value) {
 		this.value = value;
@@ -69,9 +69,9 @@ public class XmlNode {
 	/**
 	 * Return attribute value for a give key
 	 * 
-	 * @param key - key for the attribute
+	 * @param key - Key for the attribute
 	 * 
-	 * @return value of the attribute if present. null otherwise. 
+	 * @return Value of the attribute if present. null otherwise. 
 	 */
 	public Object getAttribute( String key ) {
 
@@ -81,7 +81,7 @@ public class XmlNode {
 	/**
 	 * Return attribute value in String format for a given key
 	 * 
-	 * @param key - key for the attribute
+	 * @param key - Key for the attribute
 	 * @return Attribute for the given key. null if attribute is not present
 	 */
 	public String getAttributeString( String key ) {
@@ -91,7 +91,7 @@ public class XmlNode {
 
 	/**
 	 * Get all Attributes 
-	 * @return attribute map
+	 * @return Attribute map
 	 */
 	public Map<String, Object> getAttributes() {
 		return attributes;
@@ -99,8 +99,8 @@ public class XmlNode {
 
 	/**
 	 * Set attribute value for a given key
-	 * @param key - attribute key 
-	 * @param value - attribute value
+	 * @param key - Attribute key 
+	 * @param value - Attribute value
 	 */
 	public void setAttribute( String key, Object value) {
 		this.attributes.put(key, value);
@@ -108,7 +108,7 @@ public class XmlNode {
 
 	/**
 	 * Get children for an Xml xmlNode
-	 * @return list of children
+	 * @return List of children
 	 */
 	public List<XmlNode> getChildren() {
 		return children;
@@ -124,7 +124,7 @@ public class XmlNode {
 
 	/**
 	 * Add child XmlNode using the given tag
-	 * @param tag tag of the new XmlNode to be added
+	 * @param tag - Tag of the new XmlNode to be added
 	 * @return Added child XmlNode
 	 */
 	public XmlNode addChild( String tag ) {
@@ -137,8 +137,8 @@ public class XmlNode {
 
 	/**
 	 * Add Child XmlNode using the given tag and value.
-	 * @param tag Tag of the XmlNode  
-	 * @param value Value of the XmlNode 
+	 * @param tag - Tag of the XmlNode  
+	 * @param value - Value of the XmlNode 
 	 * @return Added child XmlNode
 	 */
 	public XmlNode addChild( String tag, String value) {
@@ -151,7 +151,7 @@ public class XmlNode {
 	/**
 	 * Return Immediate children XmlNodes for which the tag is matching
 	 * 
-	 * @param tag XML tag for searching
+	 * @param tag - XML tag for searching
 	 * @return List of XmlNode for which the given tag is matching
 	 */
 	public List<XmlNode> getChildren( String tag){
@@ -172,7 +172,7 @@ public class XmlNode {
 	/**
 	 * Return Recursive children XmlNodes for which the tag is matching
 	 * 
-	 * @param tag XML tag for searching
+	 * @param tag - XML tag for searching
 	 * @return List of XmlNode for which the given tag is matching recursively
 	 */
 	public List<XmlNode> getChildrenRecurisve( String tag ){
@@ -187,9 +187,9 @@ public class XmlNode {
 	/**
 	 * Return Recursive children XmlNode for which the tag is matching
 	 * 
-	 * @param outList list in which the output is added.
-	 * @param parent parent XmlNode
-	 * @param tag XML tag for searching
+	 * @param outList - List in which the output is added.
+	 * @param parent - Parent XmlNode
+	 * @param tag XML - Tag for searching
 	 */
 	public void getChildrenRecurisve( List<XmlNode> outList, XmlNode parent, String tag ) {
 
@@ -206,8 +206,8 @@ public class XmlNode {
 
 	/**
 	 * Return first XmlNode matches the given tag
-	 * @param tag XML tag for searching
-	 * @return XmlNode matches the given tag
+	 * @param tag - XML tag for searching
+	 * @return First XmlNode matches the given tag. null if no match
 	 */
 	public XmlNode getFirstChild( String tag ) {
 
@@ -225,10 +225,10 @@ public class XmlNode {
 	/**
 	 * Return first XmlNode matches the given tag, attribute key and attribute value.
 	 * 
-	 * @param tag XML tag for searching 
-	 * @param attribKey XML attribute key for searching 
-	 * @param attribValue XML attribute value for searching  
-	 * @return
+	 * @param tag - XML tag for searching 
+	 * @param attribKey - XML attribute key for searching 
+	 * @param attribValue - XML attribute value for searching  
+	 * @return First XmlNode matches the given attribute key and attribute value. null if no match
 	 */
 	public XmlNode getFirstChild( String tag, String attribKey, Object attribValue ) {
 
@@ -249,16 +249,17 @@ public class XmlNode {
 
 	/**
 	 * Remove xmlNode from the children if present.
-	 * @param xmlNode - xmlNode to remove from the children 
+	 * @param xmlNode - XmlNode to remove from the children 
+	 * @return true if this XmlNode contained the specified child element
 	 */
-	public void remove( XmlNode xmlNode ) {
+	public boolean remove( XmlNode xmlNode ) {
 
-		this.children.remove( xmlNode );
+		return this.children.remove( xmlNode );
 	}
 
 	/**
 	 * Copy given xmlNode as a Child
-	 * @param xmlNode - xmlNode to be copied as child
+	 * @param xmlNode - XmlNode to be copied as child
 	 */
 	public void copy( XmlNode xmlNode ) {
 
@@ -317,10 +318,10 @@ public class XmlNode {
 
 	/**
 	 * 
-	 * @param nodeList
-	 * @param outList
-	 * @param xpathArr 
-	 * @param index
+	 * @param nodeList - List of XmlNode for searching 
+	 * @param outList - Return List of XmlNode for storing the results
+	 * @param xpathArr - Search keys array
+	 * @param index - Index of xpathArr for searching in nodeList
 	 */
 	public void getChildrenByPath( List<XmlNode> nodeList, 
 			List<XmlNode> outList, String[] xpathArr, int index ) {
