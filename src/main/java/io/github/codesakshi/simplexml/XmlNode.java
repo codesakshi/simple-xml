@@ -175,7 +175,7 @@ public class XmlNode {
 	 * @param tag - XML tag for searching
 	 * @return List of XmlNode for which the given tag is matching recursively
 	 */
-	public List<XmlNode> getChildrenRecurisve( String tag ){
+	public List<XmlNode> getChildrenRecursive( String tag ){
 
 		List<XmlNode> list = new LinkedList<XmlNode>();
 
