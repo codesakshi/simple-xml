@@ -154,7 +154,7 @@ public class XmlNode {
 	 * @param tag - XML tag for searching
 	 * @return List of XmlNode for which the given tag is matching
 	 */
-	public List<XmlNode> getChildren( String tag){
+	public List<XmlNode> getChildrenByTagName( String tag){
 
 		List<XmlNode> list = new LinkedList<XmlNode>();
 
@@ -175,11 +175,11 @@ public class XmlNode {
 	 * @param tag - XML tag for searching
 	 * @return List of XmlNode for which the given tag is matching recursively
 	 */
-	public List<XmlNode> getChildrenRecursive( String tag ){
+	public List<XmlNode> getChildrenRecursiveByTagName( String tag ){
 
 		List<XmlNode> list = new LinkedList<XmlNode>();
 
-		getChildrenRecurisve( list, this, tag );
+		getChildrenRecurisveByTagName( list, this, tag );
 
 		return list;
 	}
@@ -191,7 +191,7 @@ public class XmlNode {
 	 * @param parent - Parent XmlNode
 	 * @param tag XML - Tag for searching
 	 */
-	public void getChildrenRecurisve( List<XmlNode> outList, XmlNode parent, String tag ) {
+	public void getChildrenRecurisveByTagName( List<XmlNode> outList, XmlNode parent, String tag ) {
 
 		for(XmlNode xmlNode: parent.getChildren() ) {
 
@@ -200,7 +200,7 @@ public class XmlNode {
 				outList.add( xmlNode );
 			}
 
-			getChildrenRecurisve( outList, xmlNode, tag);
+			getChildrenRecurisveByTagName( outList, xmlNode, tag);
 		}
 	}
 
@@ -209,7 +209,7 @@ public class XmlNode {
 	 * @param tag - XML tag for searching
 	 * @return First XmlNode matches the given tag. null if no match
 	 */
-	public XmlNode getFirstChild( String tag ) {
+	public XmlNode getFirstChildByTagName( String tag ) {
 
 		for( XmlNode xmlNode : this.children ) {
 
@@ -230,7 +230,7 @@ public class XmlNode {
 	 * @param attribValue - XML attribute value for searching  
 	 * @return First XmlNode matches the given attribute key and attribute value. null if no match
 	 */
-	public XmlNode getFirstChild( String tag, String attribKey, Object attribValue ) {
+	public XmlNode getFirstChildByTagAndAttribute( String tag, String attribKey, Object attribValue ) {
 
 		for( XmlNode xmlNode : this.children ) {
 

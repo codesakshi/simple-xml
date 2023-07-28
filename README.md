@@ -130,7 +130,7 @@ Above code will print the value 'Today'.
 		XmlRoot root = new XmlRoot();
 		root.readXmlFromString(xmlString);
 		
-		XmlNode livingNode = root.getFirstChild("Living") ;
+		XmlNode livingNode = root.getFirstChildByTagName("Living") ;
 		
 		String livingOn = livingNode.getAttributeString("living-on");
 		
@@ -147,7 +147,7 @@ Above code will print the value 'Earth'.
 		XmlRoot root = new XmlRoot();
 		root.readXmlFromString(xmlString);
 		
-		XmlNode livingNode = root.getFirstChild("Living", "living-on", "Mars") ;
+		XmlNode livingNode = root.getFirstChildByTagAndAttribute("Living", "living-on", "Mars") ;
 		
 		String distance = livingNode.getAttributeString("distance");
 		
@@ -165,7 +165,7 @@ Above code will print the value '100000'.
 		XmlRoot root = new XmlRoot();
 		root.readXmlFromString(xmlString);
 		
-		XmlNode livingNode = root.getFirstChild("Living") ;
+		XmlNode livingNode = root.getFirstChildByTagName("Living") ;
 				
 		List<XmlNode> livingThings = livingNode.getChildren();
 		
@@ -203,9 +203,9 @@ Above code will produce new XML with children of "Living" tag.
 		XmlRoot root = new XmlRoot();
 		root.readXmlFromString(xmlString);
 		
-		XmlNode humanNode = root.getFirstChild("Living").getFirstChild("Human");
+		XmlNode humanNode = root.getFirstChildByTagName("Living").getFirstChildByTagName("Human");
 		
-		List<XmlNode> nameList = humanNode.getChildren("Name");
+		List<XmlNode> nameList = humanNode.getChildrenByTagName("Name");
 		
 		XmlRoot newRoot = new XmlRoot("HumanNames");
 		newRoot.getChildren().addAll(nameList);
@@ -232,7 +232,7 @@ Above code will produce new XML with all "Name" tags under "Human" tag.
 		XmlRoot root = new XmlRoot();
 		root.readXmlFromString(xmlString);
 		
-		List<XmlNode> nameList = root.getChildrenRecursive("Name");
+		List<XmlNode> nameList = root.getChildrenRecursiveByTagName("Name");
 		
 		XmlRoot newRoot = new XmlRoot("AllNames");
 		newRoot.getChildren().addAll(nameList);
