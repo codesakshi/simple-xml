@@ -1,13 +1,16 @@
 
 # Simple XML
 
-This small library allows you to create and parse xml in an easy way. This library will convert xml to easily accessible Map and List Objects. 
+This small Java library allows you to create and parse xml in an easy way. This library will convert xml to easily accessible Map and List Objects. 
 
 Feature requests are always welcome. Just open an issue. Also, if my documentation is missing something or unclear, please let me know.
 
 ## Features
-#### 1. Uses java.util.List and java.util.Map to store XML Tags and Attributes
-#### 2. Can read and write XML Using Stream, String or org.w3c.dom.Document
+* Represents XML elements in tree structure for easy traversal.
+* Uses java.util.List and java.util.Map to store XML Tags and Attributes.
+* imports, modifies or creates XML from scratch.
+* Can read and write XML Using Stream, String or org.w3c.dom.Document.
+* Perform simple or complex searches with simple XPATH like queries.
 
 ## Setup
 
@@ -77,29 +80,29 @@ Or include the [JAR](https://mvnrepository.com/artifact/io.github.codesakshi/sim
 	}
 ```
 
-Above code will produce following output.
+Above code will produce following XML as output.
 
 ```xml
-<RootTag created="Today">
-    <Living distance="0" living-on="Earth">
-        <Human>
-            <Name Gender="Female">Alice</Name>
-            <Name Gender="Male">Bob</Name>
-            <Food>Salad</Food>
-            <Food>Pizza</Food>
-        </Human>
-        <Cats>
-            <Name Gender="Female">Billy</Name>
-            <Name Gender="Male">Milo</Name>
-            <Food>Chicken</Food>
-        </Cats>
-    </Living>
-    <Living distance="100000" living-on="Mars">
-        <Alien>
-            <Name Gender="Alien Man">Boris Alien</Name>
-        </Alien>
-    </Living>
-</RootTag>
+	<RootTag created="Today">
+	    <Living distance="0" living-on="Earth">
+	        <Human>
+	            <Name Gender="Female">Alice</Name>
+	            <Name Gender="Male">Bob</Name>
+	            <Food>Salad</Food>
+	            <Food>Pizza</Food>
+	        </Human>
+	        <Cats>
+	            <Name Gender="Female">Billy</Name>
+	            <Name Gender="Male">Milo</Name>
+	            <Food>Chicken</Food>
+	        </Cats>
+	    </Living>
+	    <Living distance="100000" living-on="Mars">
+	        <Alien>
+	            <Name Gender="Alien Man">Boris Alien</Name>
+	        </Alien>
+	    </Living>
+	</RootTag>
 
 ```
 
@@ -112,12 +115,12 @@ Suppose you have above mentioned xml content in a String 'xmlString'
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		String created = root.getAttributeString("created");
-		
-		System.out.println( created );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	String created = root.getAttributeString("created");
+	
+	System.out.println( created );
 
 ```
 
@@ -127,14 +130,14 @@ Above code will print the value 'Today'.
 
 ``` java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		XmlNode livingNode = root.getFirstChildByTagName("Living") ;
-		
-		String livingOn = livingNode.getAttributeString("living-on");
-		
-		System.out.println( livingOn );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	XmlNode livingNode = root.getFirstChildByTagName("Living") ;
+	
+	String livingOn = livingNode.getAttributeString("living-on");
+	
+	System.out.println( livingOn );
 		
 ```
 
@@ -144,14 +147,14 @@ Above code will print the value 'Earth'.
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		XmlNode livingNode = root.getFirstChildByTagAndAttribute("Living", "living-on", "Mars") ;
-		
-		String distance = livingNode.getAttributeString("distance");
-		
-		System.out.println(  distance );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	XmlNode livingNode = root.getFirstChildByTagAndAttribute("Living", "living-on", "Mars") ;
+	
+	String distance = livingNode.getAttributeString("distance");
+	
+	System.out.println(  distance );
 
 ```
 
@@ -162,17 +165,17 @@ Above code will print the value '100000'.
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		XmlNode livingNode = root.getFirstChildByTagName("Living") ;
-				
-		List<XmlNode> livingThings = livingNode.getChildren();
-		
-		XmlRoot newRoot = new XmlRoot("LivingThings");
-		newRoot.getChildren().addAll(livingThings);
-		
-		System.out.println( newRoot.toXmlString() );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	XmlNode livingNode = root.getFirstChildByTagName("Living") ;
+			
+	List<XmlNode> livingThings = livingNode.getChildren();
+	
+	XmlRoot newRoot = new XmlRoot("LivingThings");
+	newRoot.getChildren().addAll(livingThings);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 
@@ -180,19 +183,19 @@ Above code will produce new XML with children of "Living" tag.
 
 ```xml
 
-<LivingThings>
-    <Human>
-        <Name Gender="Female">Alice</Name>
-        <Name Gender="Male">Bob</Name>
-        <Food>Salad</Food>
-        <Food>Pizza</Food>
-    </Human>
-    <Cats>
-        <Name Gender="Female">Billy</Name>
-        <Name Gender="Male">Milo</Name>
-        <Food>Chicken</Food>
-    </Cats>
-</LivingThings>
+	<LivingThings>
+	    <Human>
+	        <Name Gender="Female">Alice</Name>
+	        <Name Gender="Male">Bob</Name>
+	        <Food>Salad</Food>
+	        <Food>Pizza</Food>
+	    </Human>
+	    <Cats>
+	        <Name Gender="Female">Billy</Name>
+	        <Name Gender="Male">Milo</Name>
+	        <Food>Chicken</Food>
+	    </Cats>
+	</LivingThings>
 
 ```
 
@@ -200,17 +203,17 @@ Above code will produce new XML with children of "Living" tag.
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		XmlNode humanNode = root.getFirstChildByTagName("Living").getFirstChildByTagName("Human");
-		
-		List<XmlNode> nameList = humanNode.getChildrenByTagName("Name");
-		
-		XmlRoot newRoot = new XmlRoot("HumanNames");
-		newRoot.getChildren().addAll(nameList);
-		
-		System.out.println( newRoot.toXmlString() );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	XmlNode humanNode = root.getFirstChildByTagName("Living").getFirstChildByTagName("Human");
+	
+	List<XmlNode> nameList = humanNode.getChildrenByTagName("Name");
+	
+	XmlRoot newRoot = new XmlRoot("HumanNames");
+	newRoot.getChildren().addAll(nameList);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 
@@ -218,10 +221,10 @@ Above code will produce new XML with all "Name" tags under "Human" tag.
 
 ```xml
 
-<HumanNames>
-    <Name Gender="Female">Alice</Name>
-    <Name Gender="Male">Bob</Name>
-</HumanNames>
+	<HumanNames>
+	    <Name Gender="Female">Alice</Name>
+	    <Name Gender="Male">Bob</Name>
+	</HumanNames>
 
 ```
 
@@ -229,15 +232,15 @@ Above code will produce new XML with all "Name" tags under "Human" tag.
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		List<XmlNode> nameList = root.getChildrenRecursiveByTagName("Name");
-		
-		XmlRoot newRoot = new XmlRoot("AllNames");
-		newRoot.getChildren().addAll(nameList);
-		
-		System.out.println( newRoot.toXmlString() );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	List<XmlNode> nameList = root.getChildrenRecursiveByTagName("Name");
+	
+	XmlRoot newRoot = new XmlRoot("AllNames");
+	newRoot.getChildren().addAll(nameList);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 
@@ -245,13 +248,13 @@ Above code will produce new XML with all "Name" tags under root tag.
 
 ```xml
 
-<AllNames>
-    <Name Gender="Female">Alice</Name>
-    <Name Gender="Male">Bob</Name>
-    <Name Gender="Female">Billy</Name>
-    <Name Gender="Male">Milo</Name>
-    <Name Gender="Alien Man">Boris Alien</Name>
-</AllNames>
+	<AllNames>
+	    <Name Gender="Female">Alice</Name>
+	    <Name Gender="Male">Bob</Name>
+	    <Name Gender="Female">Billy</Name>
+	    <Name Gender="Male">Milo</Name>
+	    <Name Gender="Alien Man">Boris Alien</Name>
+	</AllNames>
 
 ```
 
@@ -262,15 +265,15 @@ If the path starts with '/' it will start searching from current XmlNode. else w
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		List<XmlNode> nodeList = root.getChildrenByPath("/RootTag/Living/Human/Food");
-		
-		XmlRoot newRoot = new XmlRoot("HumanFoods");
-		newRoot.getChildren().addAll(nodeList);
-		
-		System.out.println( newRoot.toXmlString() );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	List<XmlNode> nodeList = root.getChildrenByPath("/RootTag/Living/Human/Food");
+	
+	XmlRoot newRoot = new XmlRoot("HumanFoods");
+	newRoot.getChildren().addAll(nodeList);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 
@@ -278,10 +281,10 @@ Above code will produce new XML with all "Food" tags under "Human" tag.
 
 ```xml
 
-<HumanFoods>
-    <Food>Salad</Food>
-    <Food>Pizza</Food>
-</HumanFoods>
+	<HumanFoods>
+	    <Food>Salad</Food>
+	    <Food>Pizza</Food>
+	</HumanFoods>
 
 ```
 
@@ -289,76 +292,76 @@ Above code will produce new XML with all "Food" tags under "Human" tag.
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
 
-		List<XmlNode> nodeList = root.getChildrenByPath("Living/Human/Food");
-		
-		XmlRoot newRoot = new XmlRoot("HumanFoods");
-		newRoot.getChildren().addAll(nodeList);
-		
-		System.out.println( newRoot.toXmlString() );
+	List<XmlNode> nodeList = root.getChildrenByPath("Living/Human/Food");
+	
+	XmlRoot newRoot = new XmlRoot("HumanFoods");
+	newRoot.getChildren().addAll(nodeList);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 Above code will produce new XML with all "Food" tags under "Human" tag.
 
 ```xml
 
-<HumanFoods>
-    <Food>Salad</Food>
-    <Food>Pizza</Food>
-</HumanFoods>
+	<HumanFoods>
+	    <Food>Salad</Food>
+	    <Food>Pizza</Food>
+	</HumanFoods>
 
 ```
-#### 9. Get children of given XmlNode using multiple path. ( Use '|' symbol to separate multiple paths.
+#### 9. Get children of given XmlNode using multiple path. ( Use '|' symbol to separate multiple paths ).
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		List<XmlNode> nodeList = root.getChildrenByPath("Living/Human/Food|Living/Cats/Food");
-		
-		XmlRoot newRoot = new XmlRoot("HumanAndCatFoods");
-		newRoot.getChildren().addAll(nodeList);
-		
-		System.out.println( newRoot.toXmlString() );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	List<XmlNode> nodeList = root.getChildrenByPath("Living/Human/Food | Living/Cats/Food");
+	
+	XmlRoot newRoot = new XmlRoot("HumanAndCatFoods");
+	newRoot.getChildren().addAll(nodeList);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 Above code will produce new XML with all "Food" tags under "Human" tag and "Cat" tag.
 
 ```xml
-<HumanAndCatFoods>
-    <Food>Salad</Food>
-    <Food>Pizza</Food>
-    <Food>Chicken</Food>
-</HumanAndCatFoods>
+	<HumanAndCatFoods>
+	    <Food>Salad</Food>
+	    <Food>Pizza</Food>
+	    <Food>Chicken</Food>
+	</HumanAndCatFoods>
 
 ```
-#### 10. Get children of given XmlNode using wild card path. ( Use '*' symbol to match all nodes.
+#### 10. Get children of given XmlNode using wild card path. ( Use '*' symbol to match all nodes ).
 
 ```java
 
-		XmlRoot root = new XmlRoot();
-		root.readXmlFromString(xmlString);
-		
-		List<XmlNode> nodeList = root.getChildrenByPath("Living/*/Food");
-		
-		XmlRoot newRoot = new XmlRoot("AllFoods");
-		newRoot.getChildren().addAll(nodeList);
-		
-		System.out.println( newRoot.toXmlString() );
+	XmlRoot root = new XmlRoot();
+	root.readXmlFromString(xmlString);
+	
+	List<XmlNode> nodeList = root.getChildrenByPath("Living/*/Food");
+	
+	XmlRoot newRoot = new XmlRoot("AllFoods");
+	newRoot.getChildren().addAll(nodeList);
+	
+	System.out.println( newRoot.toXmlString() );
 		
 ```
 
 Above code will produce new XML with all "Food" tags under "Human" tag and "Cat" tag.
 
 ```xml
-<HumanOrCatFoods>
-    <Food>Salad</Food>
-    <Food>Pizza</Food>
-    <Food>Chicken</Food>
-</HumanOrCatFoods>
+	<HumanOrCatFoods>
+	    <Food>Salad</Food>
+	    <Food>Pizza</Food>
+	    <Food>Chicken</Food>
+	</HumanOrCatFoods>
 
 ```
 
